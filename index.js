@@ -66,20 +66,27 @@ startRsvpButton.addEventListener("click",
 
 // Listen to the current Auth state
 firebase.auth().onAuthStateChanged((user) => {
- if (user){
-   startRsvpButton.textContent = "LOGOUT";
-   // Show guestbook to logged-in users
-   guestbookContainer.style.display = "block";
+if (user){
+  startRsvpButton.textContent = "LOGOUT";
+  // Show guestbook to logged-in users
+  guestbookContainer.style.display = "block";
+
+  // Subscribe to the guestbook collection
   subscribeGuestbook();
-  subscribeCurrentRSVP(user)
- }
- else{
-   startRsvpButton.textContent = "RSVP";
-   // Hide guestbook for non-logged-in users
-   guestbookContainer.style.display = "none";
+  // Subscribe to the guestbook collection
+  subscribeCurrentRSVP(user);
+}
+else{
+  startRsvpButton.textContent = "RSVP";
+  // Hide guestbook for non-logged-in users
+  guestbookContainer.style.display = "none";
+
+  // Unsubscribe from the guestbook collection
   unsubscribeGuestbook();
-  unsubscribeCurrentRSVP()
- }
+  // Unsubscribe from the guestbook collection
+  unsubscribeCurrentRSVP();
+
+}
 });
 // Called when the user clicks the RSVP button
 startRsvpButton.addEventListener("click",
